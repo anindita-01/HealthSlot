@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState, useCallback } from "react";
 import axios from "axios";
-import toast, { Toaster } from "react-hot-toast";
+import { Toaster } from "react-hot-toast";
 import {
   CalendarDays,
   Clock,
@@ -160,11 +160,11 @@ export default function AppointmentPage() {
   const [doctorAppts, setDoctorAppts] = useState([]);
   const [serviceAppts, setServiceAppts] = useState([]);
 
-  const [appointmentsRaw, setAppointmentsRaw] = useState({
+  const [, setAppointmentsRaw] = useState({
     doctors: [],
     services: [],
   });
-  const [error, setError] = useState(null);
+  const [, setError] = useState(null);
 
   /* -------------------- Fetch Doctor Appointments -------------------- */
   const loadDoctorAppointments = useCallback(async () => {

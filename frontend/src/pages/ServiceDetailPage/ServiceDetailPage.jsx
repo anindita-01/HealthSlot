@@ -19,7 +19,7 @@ export default function ServiceDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const { isSignedIn, userId, getToken } = useAuth();
+  const { isSignedIn, getToken } = useAuth();
 
   // UI state
   const [selectedDate, setSelectedDate] = useState("");
@@ -34,7 +34,7 @@ export default function ServiceDetail() {
 
   const [service, setService] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [fetchError, setFetchError] = useState(null);
+  const [, setFetchError] = useState(null);
 
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState(null);
@@ -129,37 +129,7 @@ export default function ServiceDetail() {
       }
 
       if (!mounted) return;
-      console.warn(
-        "All endpoints failed, falling back to local servicesData. Last error:",
-        lastError,
-      );
-      const local =
-        servicesData && servicesData.find((s) => String(s.id) === String(id));
-      if (local) {
-        const cloned = JSON.parse(JSON.stringify(local));
-        if (
-          !cloned.slots ||
-          (Array.isArray(cloned.slots) &&
-            cloned.dates &&
-            cloned.dates.length > 0)
-        ) {
-          const arrSlots = Array.isArray(cloned.slots) ? cloned.slots : [];
-          const slotsMap = {};
-          if (cloned.dates && cloned.dates.length > 0) {
-            cloned.dates.forEach((d) => (slotsMap[d] = arrSlots.slice()));
-          } else {
-            const today = new Date().toISOString().split("T")[0];
-            slotsMap[today] = arrSlots.slice();
-            cloned.dates = [today];
-          }
-          cloned.slots = slotsMap;
-        }
-        setService(cloned);
-        if (cloned.dates && cloned.dates.length > 0)
-          setSelectedDate(cloned.dates[0]);
-        setLoading(false);
-        return;
-      }
+      console.warn("All service detail endpoints failed. Last error:", lastError);
 
       setFetchError("Unable to fetch service details from server.");
       setLoading(false);
@@ -372,7 +342,7 @@ export default function ServiceDetail() {
         return;
       }
 
-      const { appointment, checkoutUrl } = json || {};
+      const { checkoutUrl } = json || {};
 
       if (checkoutUrl) {
         window.location.href = checkoutUrl;

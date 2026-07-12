@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Link, useParams, useLocation } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import {
   Calendar,
   CheckCircle,
@@ -152,18 +152,16 @@ function normalizeAppointment(a) {
    ------------------------- */
 export default function DashboardPage({ apiBase }) {
   const params = useParams();
-  const location = useLocation();
 
   const [appointments, setAppointments] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [, setError] = useState(null);
 
   // resolved API base and doctorId detection order:
   // 1) prop doctorId
   // 2) route param :doctorId
   // 3) query string ?doctorId=
   // 4) undefined -> fallback to all appointments
-  location.search;
   const API = apiBase || API_BASE;
 
   const doctorId = params.id;

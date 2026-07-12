@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import logo from "../../assets/logo.png";
 import { Menu, X, User as UserIcon, Key } from "lucide-react";
 
@@ -15,7 +15,7 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [showNavbar, setShowNavbar] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
-  const [isDoctorLoggedIn, setIsDoctorLoggedIn] = useState(() => {
+  const [, setIsDoctorLoggedIn] = useState(() => {
     try {
       return Boolean(localStorage.getItem(STORAGE_KEY));
     } catch {
@@ -26,7 +26,6 @@ export default function Navbar() {
   const location = useLocation();
   const navRef = useRef(null);
   const clerk = useClerk();
-  const navigate = useNavigate();
 
   /* Hide / show navbar on scroll */
   useEffect(() => {
@@ -72,12 +71,6 @@ export default function Navbar() {
     { label: "Appointments", href: "/appointments" },
     { label: "Contact", href: "/contact" },
   ];
-
-  function doctorLogout() {
-    localStorage.removeItem(STORAGE_KEY);
-    setIsDoctorLoggedIn(false);
-    navigate("/");
-  }
 
   return (
     <>

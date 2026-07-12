@@ -52,22 +52,25 @@ export default function Navbar() {
         {/* Desktop Menu (visible on lg) */}
         <div className={navbarStylesDr.desktopMenu}>
           <div className={navbarStylesDr.desktopMenuItems}>
-            {navItems.map(({ name, to, Icon }) => (
-              <NavLink
-                key={to}
-                to={to}
-                end={to === basePath} // mark dashboard link as exact match
-                className={({ isActive }) =>
-                  `${navbarStylesDr.baseLink} ${isActive ? navbarStylesDr.activeLink : navbarStylesDr.inactiveLink}`
-                }
-                onClick={() => setOpen(false)}
-              >
-                <span className={navbarStylesDr.linkContent}>
-                  <Icon size={16} className={navbarStylesDr.linkIcon} />
-                  <span className={navbarStylesDr.linkText}>{name}</span>
-                </span>
-              </NavLink>
-            ))}
+            {navItems.map(({ name, to, Icon }) => {
+              const NavIcon = Icon;
+              return (
+                <NavLink
+                  key={to}
+                  to={to}
+                  end={to === basePath} // mark dashboard link as exact match
+                  className={({ isActive }) =>
+                    `${navbarStylesDr.baseLink} ${isActive ? navbarStylesDr.activeLink : navbarStylesDr.inactiveLink}`
+                  }
+                  onClick={() => setOpen(false)}
+                >
+                  <span className={navbarStylesDr.linkContent}>
+                    <NavIcon size={16} className={navbarStylesDr.linkIcon} />
+                    <span className={navbarStylesDr.linkText}>{name}</span>
+                  </span>
+                </NavLink>
+              );
+            })}
           </div>
         </div>
 
@@ -108,24 +111,27 @@ export default function Navbar() {
       {/* Mobile & Tablet Menu */}
       <div className={navbarStylesDr.mobileMenuContainer(open)}>
         <div className={navbarStylesDr.mobileMenuContent}>
-          {navItems.map(({ name, to, Icon }) => (
-            <NavLink
-              key={to}
-              to={to}
-              end={to === basePath}
-              className={({ isActive }) =>
-                `${navbarStylesDr.mobileBaseLink} ${
-                  isActive
-                    ? navbarStylesDr.mobileActiveLink
-                    : navbarStylesDr.mobileInactiveLink
-                }`
-              }
-              onClick={() => setOpen(false)}
-            >
-              <Icon size={18} className="text-emerald-600" />
-              <span>{name}</span>
-            </NavLink>
-          ))}
+          {navItems.map(({ name, to, Icon }) => {
+            const NavIcon = Icon;
+            return (
+              <NavLink
+                key={to}
+                to={to}
+                end={to === basePath}
+                className={({ isActive }) =>
+                  `${navbarStylesDr.mobileBaseLink} ${
+                    isActive
+                      ? navbarStylesDr.mobileActiveLink
+                      : navbarStylesDr.mobileInactiveLink
+                  }`
+                }
+                onClick={() => setOpen(false)}
+              >
+                <NavIcon size={18} className="text-emerald-600" />
+                <span>{name}</span>
+              </NavLink>
+            );
+          })}
 
           {/* Logout button mobile */}
           <button

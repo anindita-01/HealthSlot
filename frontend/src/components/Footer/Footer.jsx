@@ -162,7 +162,7 @@ const Footer = () => {
           <div className={footerStyles.linksSection}>
             <h3 className={footerStyles.sectionTitle}>Our Services</h3>
             <ul className={footerStyles.linksList}>
-              {services.map((service, index) => (
+              {services.map((service) => (
                 <li key={service.name}>
                   <a href={service.href} className={footerStyles.serviceLink}>
                     <div className={footerStyles.serviceIcon} />
@@ -215,7 +215,9 @@ const Footer = () => {
 
               {/* Social icons */}
               <div className={footerStyles.socialContainer}>
-                {socialLinks.map(({ Icon, color, name, href }, index) => (
+                {socialLinks.map(({ Icon, color, name, href }, index) => {
+                  const SocialIcon = Icon;
+                  return (
                   <a
                     key={name}
                     href={href}
@@ -226,9 +228,10 @@ const Footer = () => {
                     style={{ animationDelay: `${index * 120}ms` }}
                   >
                     <div className={footerStyles.socialIconBackground} />
-                    <Icon className={`${footerStyles.socialIcon} ${color}`} />
+                    <SocialIcon className={`${footerStyles.socialIcon} ${color}`} />
                   </a>
-                ))}
+                  );
+                })}
               </div>
             </div>
           </div>
